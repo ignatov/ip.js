@@ -37,6 +37,9 @@
                 reader.readAsDataURL(input.files[0]);
             }
         }
+        $(document).ready(function () {
+            netscape.security.PrivilegeManager.enablePrivilege("UniversalBrowserRead");
+        });
     </script>
 
     <style>
