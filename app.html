@@ -2,41 +2,68 @@
         "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-    <title>Pixastic test</title>
+    <title>Simple image editor</title>
     <script src="lib/jquery-1.5.js"></script>
     <script src="lib/pixastic.custom.js"></script>
     <script src="lib/dilation.js"></script>
     <script src="lib/erosion.js"></script>
+
     <script type="text/javascript">
-        function demo() {
-            $("#demoimage").pixastic("blurfast", {amount:0.2});
-        }
         function invert() {
-            $("#demoimage").pixastic("invert");
+            $("#image").pixastic("invert");
         }
         function dilation() {
-            $("#demoimage").pixastic("dilation");
+            $("#image").pixastic("dilation");
         }
         function erosion() {
-            $("#demoimage").pixastic("erosion");
+            $("#image").pixastic("erosion");
         }
         function reset() {
-            Pixastic.revert(document.getElementById("demoimage"));
+            Pixastic.revert(document.getElementById("image"));
         }
     </script>
+    <script type="text/javascript">
+        function readURI(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#image').attr('src', e.target.result);
+                    $('#image').show();
+                    $('#saver').attr('href', e.target.result);
+                    $('#saver').show();
+                    $('#filters').show();
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
+
+    <style>
+        .hidden {
+            display: none;
+        }
+    </style>
 </head>
 <body>
 
-<h1>Simple image editor</h1>
+<div id="container">
+    <h1>Simple image editor</h1>
 
-<img src='data/eames.jpg' id='demoimage'/>
-<img src='data/eames.jpg' id='demoimage1'/>
-<br/>
-<input type="button" onclick="demo();" value="Blur image"/>
-<input type="button" onclick="invert();" value="Invert image"/>
-<input type="button" onclick="dilation();" value="Dilation image"/>
-<input type="button" onclick="erosion();" value="Erosion image"/>
-<input type="button" onclick="reset();" value="Reset"/>
+    <input type='file' onchange="readURI(this);"/>
+
+    <div id="filters" class="hidden">
+        <label><input type="button" onclick="invert();" value="Invert image"/></label>
+        <label><input type="button" onclick="dilation();" value="Dilation image"/></label>
+        <label><input type="button" onclick="erosion();" value="Erosion image"/></label>
+        <label><input type="button" onclick="reset();" value="Reset"/></label>
+    </div>
+    
+    <br/>
+    <img id="image" class="hidden" alt="Your image" src="#"/>
+    <br/>
+    <a id="saver" href="#" class="hidden">Save image as...</a>
+</div>
 
 </body>
 </html>
