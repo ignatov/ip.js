@@ -12,31 +12,38 @@
     <script type="text/javascript">
         function invert() {
             $("#image").pixastic("invert");
+            cleanResult();
         }
         function dilation() {
             $("#image").pixastic("dilation");
+            cleanResult();
         }
         function erosion() {
             $("#image").pixastic("erosion");
+            cleanResult();
         }
         function reset() {
             Pixastic.revert(document.getElementById("image"));
+            cleanResult();
         }
-        function saveAs() {
+        function convertToPNG() {
             var canvas = document.getElementById("image");
             var context = canvas.getContext("2d");
             var img = canvas.toDataURL("image/png");
-            document.write('<img src="' + img + '"/>');
+            $("#result").html('<img src=' + img + ' /><br />Right click the image and select "save as" in order to save it.');
         }
-    </script>
-    <script type="text/javascript">
+        function cleanResult() {
+            $("#result").empty();
+        }
         function readURI(input) {
+
             if (input.files && input.files[0]) {
                 var reader = new FileReader();
 
                 reader.onload = function (e) {
+                    $(".hidden").hide();
                     img.src = e.target.result;
-                    $('#saver').attr('href', e.target.result);
+                    reset();
                     $('.hidden').show();
                 };
                 reader.readAsDataURL(input.files[0]);
@@ -86,7 +93,9 @@
 
     <br/>
 
-    <label><input type="button" class="hidden" onclick="saveAs();" value="Save as..."/></label>
+    <label><input type="button" class="hidden" onclick="convertToPNG();" value="Convert to PNG"/></label>
+
+    <div id="result"></div>
 </div>
 
 </body>
