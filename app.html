@@ -21,6 +21,12 @@
         function reset() {
             Pixastic.revert(document.getElementById("image"));
         }
+        function saveAs() {
+            var canvas = document.getElementById("image");
+            var context = canvas.getContext("2d");
+            var img = canvas.toDataURL("image/png");
+            document.write('<img src="' + img + '"/>');
+        }
     </script>
     <script type="text/javascript">
         function readURI(input) {
@@ -28,11 +34,9 @@
                 var reader = new FileReader();
 
                 reader.onload = function (e) {
-                    $('#image').attr('src', e.target.result);
-                    $('#image').show();
+                    img.src = e.target.result;
                     $('#saver').attr('href', e.target.result);
-                    $('#saver').show();
-                    $('#filters').show();
+                    $('.hidden').show();
                 };
                 reader.readAsDataURL(input.files[0]);
             }
@@ -61,11 +65,25 @@
         <label><input type="button" onclick="erosion();" value="Erosion image"/></label>
         <label><input type="button" onclick="reset();" value="Reset"/></label>
     </div>
-    
+
     <br/>
-    <img id="image" class="hidden" alt="Your image" src="#"/>
+    <canvas id="image" class="hidden"></canvas>
+
+    <script type="text/javascript">
+        var can = document.getElementById('image');
+        var ctx = can.getContext('2d');
+
+        var img = new Image();
+        img.onload = function() {
+            can.width = img.width;
+            can.height = img.height;
+            ctx.drawImage(img, 0, 0, img.width, img.height);
+        }
+    </script>
+
     <br/>
-    <a id="saver" href="#" class="hidden">Save image as...</a>
+
+    <label><input type="button" class="hidden" onclick="saveAs();" value="Save as..."/></label>
 </div>
 
 </body>
