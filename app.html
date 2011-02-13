@@ -1,66 +1,15 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-        "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
     <title>Simple image editor</title>
-    <script src="lib/jquery-1.5.js"></script>
-    <script src="lib/browser-detect.js"></script>
-    <script src="lib/pixastic.custom.js"></script>
-    <script src="lib/dilation.js"></script>
-    <script src="lib/erosion.js"></script>
-
-    <script type="text/javascript">
-        function invert() {
-            $("#image").pixastic("invert");
-            cleanResult();
-        }
-        function dilation() {
-            $("#image").pixastic("dilation");
-            cleanResult();
-        }
-        function erosion() {
-            $("#image").pixastic("erosion");
-            cleanResult();
-        }
-        function reset() {
-            Pixastic.revert(document.getElementById("image"));
-            cleanResult();
-        }
-        function convertToPNG() {
-            var canvas = document.getElementById("image");
-            var context = canvas.getContext("2d");
-            var img = canvas.toDataURL("image/png");
-            $("#result").html('<img src=' + img + ' /><br />Right click the image and select "save as" in order to save it.');
-        }
-        function cleanResult() {
-            $("#result").empty();
-        }
-        function readURI(input) {
-
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
-
-                reader.onload = function (e) {
-                    $(".hidden").hide();
-                    img.src = e.target.result;
-                    reset();
-                    $('.hidden').show();
-                };
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
-        $(document).ready(function () {
-            BrowserDetect.init();
-            if (BrowserDetect.browser === "Firefox")
-                netscape.security.PrivilegeManager.enablePrivilege("UniversalBrowserRead");
-        });
-    </script>
-
-    <style>
-        .hidden {
-            display: none;
-        }
-    </style>
+    <script type="text/javascript" src="js/jquery-1.5.js"></script>
+    <script type="text/javascript" src="js/browser-detect.js"></script>
+    <script type="text/javascript" src="js/pixastic.custom.js"></script>
+    <script type="text/javascript" src="js/dilation.js"></script>
+    <script type="text/javascript" src="js/erosion.js"></script>
+    <script type="text/javascript" src="js/ui.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/style.css"/>
+    <meta charset="UTF-8">
 </head>
 <body>
 
@@ -76,20 +25,9 @@
         <label><input type="button" onclick="reset();" value="Reset"/></label>
     </div>
 
-    <br/>
     <canvas id="image" class="hidden"></canvas>
 
-    <script type="text/javascript">
-        var can = document.getElementById('image');
-        var ctx = can.getContext('2d');
-
-        var img = new Image();
-        img.onload = function() {
-            can.width = img.width;
-            can.height = img.height;
-            ctx.drawImage(img, 0, 0, img.width, img.height);
-        }
-    </script>
+    <script type="text/javascript" src="js/load-image.js"></script>
 
     <br/>
 
