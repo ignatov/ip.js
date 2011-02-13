@@ -4,6 +4,7 @@
 <head>
     <title>Simple image editor</title>
     <script src="lib/jquery-1.5.js"></script>
+    <script src="lib/browser-detect.js"></script>
     <script src="lib/pixastic.custom.js"></script>
     <script src="lib/dilation.js"></script>
     <script src="lib/erosion.js"></script>
@@ -42,7 +43,9 @@
             }
         }
         $(document).ready(function () {
-            netscape.security.PrivilegeManager.enablePrivilege("UniversalBrowserRead");
+            BrowserDetect.init();
+            if (BrowserDetect.browser === "Firefox")
+                netscape.security.PrivilegeManager.enablePrivilege("UniversalBrowserRead");
         });
     </script>
 
