@@ -9,7 +9,7 @@
     <script type="text/javascript" src="js/erosion.js"></script>
     <script type="text/javascript" src="js/ui.js"></script>
     <link rel="stylesheet" type="text/css" href="css/style.css"/>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8"/>
 </head>
 <body>
 
@@ -18,20 +18,27 @@
 
     <input type='file' onchange="readURI(this);"/>
 
-    <div id="filters" class="hidden">
-        <label><input type="button" onclick="invert();" value="Invert image"/></label>
-        <label><input type="button" onclick="dilation();" value="Dilation image"/></label>
-        <label><input type="button" onclick="erosion();" value="Erosion image"/></label>
-        <label><input type="button" onclick="reset();" value="Reset"/></label>
+    <div id="controls" class="hidden">
+        <div id="filters">
+            <h3>Binary filters</h3>
+            <ul>
+                <li><a href="#" onclick="invert();">Invert image</a></li>
+                <li><a href="#" onclick="dilation();">Dilation image</a></li>
+                <li><a href="#" onclick="erosion();">Erosion image</a></li>
+            </ul>
+        </div>
+        <div id="manipulations">
+            <h3>Manipulations</h3>
+            <ul>
+                <li><a href="#" onclick="reset();">Reset</a></li>
+                <li><a href="#" class="hidden" onclick="convertToPNG();">Convert to PNG</a></li>
+            </ul>
+        </div>
     </div>
 
     <canvas id="image" class="hidden"></canvas>
 
     <script type="text/javascript" src="js/load-image.js"></script>
-
-    <br/>
-
-    <label><input type="button" class="hidden" onclick="convertToPNG();" value="Convert to PNG"/></label>
 
     <div id="result"></div>
 </div>
