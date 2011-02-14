@@ -7,7 +7,7 @@
     <script type="text/javascript" src="js/pixastic.custom.js"></script>
     <script type="text/javascript" src="js/dilation.js"></script>
     <script type="text/javascript" src="js/erosion.js"></script>
-    <script type="text/javascript" src="js/ui.js"></script>
+
     <link rel="stylesheet" type="text/css" href="css/style.css"/>
     <meta charset="UTF-8"/>
 </head>
@@ -18,19 +18,19 @@
 
     <input type='file' onchange="readURI(this);"/>
 
-    <div id="controls" class="hidden">
+    <div id="actions" class="hidden">
         <div id="filters">
             <h3>Binary filters</h3>
             <ul>
-                <li><a href="#" onclick="invert();">Invert image</a></li>
-                <li><a href="#" onclick="dilation();">Dilation image</a></li>
-                <li><a href="#" onclick="erosion();">Erosion image</a></li>
+                <li><a href="#" id="invert">Invert image</a></li>
+                <li><a href="#" id="dilation">Dilation image</a></li>
+                <li><a href="#" id="erosion">Erosion image</a></li>
             </ul>
         </div>
         <div id="manipulations">
             <h3>Manipulations</h3>
             <ul>
-                <li><a href="#" onclick="reset();">Reset</a></li>
+                <li><a href="#" id="reset" onclick="reset();">Reset</a></li>
                 <li><a href="#" class="hidden" onclick="convertToPNG();">Convert to PNG</a></li>
             </ul>
         </div>
@@ -38,10 +38,13 @@
 
     <canvas id="image" class="hidden"></canvas>
 
-    <script type="text/javascript" src="js/load-image.js"></script>
-
     <div id="result"></div>
+
+    <div id="log"></div>
 </div>
+
+<script type="text/javascript" src="js/load-image.js"></script>
+<script type="text/javascript" src="js/ui.js"></script>
 
 </body>
 </html>
