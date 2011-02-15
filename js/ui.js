@@ -8,7 +8,7 @@ var aryHistory = [];
 function addHistory(imagedata, label, duration) {
   aryHistory.push({data: imagedata, label: label, duration: duration});
   jQuery('#history ul').empty();
-  for (i = aryHistory.length - 1; i >= 0; i--) {
+  for (var i = aryHistory.length - 1; i >= 0; i--) {
     jQuery('#history ul').append(
             '<li><a href="#" class="history" rel="' + i + '">' + aryHistory[i].label + ' (' + aryHistory[i].duration + ' ms)' + '</a></li>'
             );
@@ -17,7 +17,6 @@ function addHistory(imagedata, label, duration) {
 
 function convertToPNG() {
   var canvas = document.getElementById("image");
-  var context = canvas.getContext("2d");
   var img = canvas.toDataURL("image/png");
   $("#result").html('<img src=' + img + ' /><br />Right click the image and select "save as" in order to save it.');
 }
@@ -37,7 +36,7 @@ function handleFileSelect(evt) {
 
   for (var i = 0, f; f = files[i]; i++) {
 
-    if (!f.type.match("image.*")) {
+    if (!f.type.match(RegExp("image.*"))) {
       continue;
     }
 
