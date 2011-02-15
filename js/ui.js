@@ -60,6 +60,16 @@ $('#filters a').click(function(e) {
   }, 10);
 });
 
+$("#reset").click(function(e) {
+  e.preventDefault();
+  reset();
+});
+
+$("#convert-to-png").click(function(e) {
+  e.preventDefault();
+  convertToPNG();
+});
+
 $(document).ready(function () {
   BrowserDetect.init();
   if (BrowserDetect.browser === "Firefox")

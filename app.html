@@ -2,12 +2,6 @@
 <html>
 <head>
     <title>Simple image editor</title>
-    <script type="text/javascript" src="js/jquery-1.5.js"></script>
-    <script type="text/javascript" src="js/browser-detect.js"></script>
-    <script type="text/javascript" src="js/pixastic.custom.js"></script>
-    <script type="text/javascript" src="js/dilation.js"></script>
-    <script type="text/javascript" src="js/erosion.js"></script>
-
     <link rel="stylesheet" type="text/css" href="css/style.css"/>
     <meta charset="UTF-8"/>
 </head>
@@ -30,8 +24,8 @@
         <div id="manipulations">
             <h3>Manipulations</h3>
             <ul>
-                <li><a href="#" id="reset" onclick="reset();">Reset</a></li>
-                <li><a href="#" class="hidden" onclick="convertToPNG();">Convert to PNG</a></li>
+                <li><a href="#" id="reset">Reset</a></li>
+                <li><a href="#" id="convert-to-png">Convert to PNG</a></li>
             </ul>
         </div>
     </div>
@@ -43,6 +37,11 @@
     <div id="log"></div>
 </div>
 
+<script type="text/javascript" src="js/jquery-1.5.js"></script>
+<script type="text/javascript" src="js/browser-detect.js"></script>
+<script type="text/javascript" src="js/pixastic.custom.js"></script>
+<script type="text/javascript" src="js/dilation.js"></script>
+<script type="text/javascript" src="js/erosion.js"></script>
 <script type="text/javascript" src="js/load-image.js"></script>
 <script type="text/javascript" src="js/ui.js"></script>
 
