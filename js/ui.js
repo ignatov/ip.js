@@ -5,7 +5,7 @@
 
 function reset() {
   Pixastic.revert(document.getElementById("image"));
-  $("#log").empty();
+  $("#history").empty();
   cleanResult();
 }
 
@@ -25,10 +25,8 @@ function readURI(input) {
     var reader = new FileReader();
 
     reader.onload = function (e) {
-      $(".hidden").hide();
       img.src = e.target.result;
       reset();
-      $('.hidden').show();
     };
     reader.readAsDataURL(input.files[0]);
   }
@@ -56,7 +54,7 @@ $('#filters a').click(function(e) {
     cleanResult();
     var endTime = new Date();
     var duration = endTime.getTime() - startTime.getTime();
-    jQuery('#log').prepend(label + " - " + duration + "ms<br />");
+    jQuery('#history').prepend(label + " - " + duration + "ms<br />");
   }, 10);
 });
 

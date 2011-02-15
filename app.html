@@ -1,41 +1,52 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="utf-8">
     <title>Simple image editor</title>
     <link rel="stylesheet" type="text/css" href="css/style.css"/>
-    <meta charset="UTF-8"/>
 </head>
 <body>
 
-<div id="container">
-    <h1>Simple image editor</h1>
+<header>
+    <hgroup>
+        <h1>Simple image editor</h1>
+    </hgroup>
+</header>
 
-    <input type='file' onchange="readURI(this);"/>
-
-    <div id="actions" class="hidden">
-        <div id="filters">
-            <h3>Binary filters</h3>
-            <ul>
-                <li><a href="#" id="invert">Invert image</a></li>
-                <li><a href="#" id="dilation">Dilation image</a></li>
-                <li><a href="#" id="erosion">Erosion image</a></li>
-            </ul>
-        </div>
-        <div id="manipulations">
-            <h3>Manipulations</h3>
-            <ul>
-                <li><a href="#" id="reset">Reset</a></li>
-                <li><a href="#" id="convert-to-png">Convert to PNG</a></li>
-            </ul>
-        </div>
+<section id="actions">
+    <h3>Load file</h3>
+    <div id="files">
+        <input type='file' onchange="readURI(this);"/>
     </div>
 
-    <canvas id="image" class="hidden"></canvas>
+    <h3>Binary filters</h3>
+    <div id="filters">
+        <ul>
+            <li><a href="#" id="invert">Invert image</a></li>
+            <li><a href="#" id="dilation">Dilation image</a></li>
+            <li><a href="#" id="erosion">Erosion image</a></li>
+        </ul>
+    </div>
 
+    <h3>Manipulations</h3>
+    <div id="manipulations">
+        <ul>
+            <li><a href="#" id="reset">Reset</a></li>
+            <li><a href="#" id="convert-to-png">Convert to PNG</a></li>
+        </ul>
+    </div>
+</section>
+
+<article>
+    <canvas id="image"></canvas>
     <div id="result"></div>
+</article>
 
-    <div id="log"></div>
-</div>
+<section id="right">
+    <h3>History</h3>
+
+    <div id="history"></div>
+</section>
 
 <script type="text/javascript" src="js/jquery-1.5.js"></script>
 <script type="text/javascript" src="js/browser-detect.js"></script>
