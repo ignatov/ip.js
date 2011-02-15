@@ -2,18 +2,18 @@
     display: none;
 }
 
-#actions ul {
+section ul {
     margin: 0;
     padding: 0;
 }
 
-#actions li {
+section li {
     list-style: none;
     margin: 0 0 3px 0;
     padding: 0;
 }
 
-#actions a {
+section a {
     color: #3399ff;
     text-decoration: none;
     border-bottom: 1px dotted #3399ff;
@@ -40,8 +40,12 @@ h1, h2, h3, h4, h5, h6 {
     margin-bottom: 7px;
 }
 
-header, section, article, footer {
+header, section, footer {
     padding: 5px;
+    margin: 5px;
+}
+
+article {
     margin: 5px;
 }
 

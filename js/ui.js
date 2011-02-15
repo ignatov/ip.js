@@ -3,10 +3,16 @@
  * Date: Feb 13, 2011
  */
 
-function reset() {
-  Pixastic.revert(document.getElementById("image"));
-  $("#history").empty();
-  cleanResult();
+var aryHistory = [];
+
+function addHistory(imagedata, label, duration) {
+  aryHistory.push({data: imagedata, label: label, duration: duration});
+  jQuery('#history ul').empty();
+  for (i = aryHistory.length - 1; i >= 0; i--) {
+    jQuery('#history ul').append(
+            '<li><a href="#" class="history" rel="' + i + '">' + aryHistory[i].label + ' (' + aryHistory[i].duration + ' ms)' + '</a></li>'
+            );
+  }
 }
 
 function convertToPNG() {
@@ -20,15 +26,41 @@ function cleanResult() {
   $("#result").empty();
 }
 
-function readURI(input) {
-  if (input.files && input.files[0]) {
+function getCurrentImageData() {
+  var canvas = document.getElementById("image");
+  var context = canvas.getContext("2d");
+  return context.getImageData(0, 0, canvas.width, canvas.height);
+}
+
+function handleFileSelect(evt) {
+  var files = evt.target.files;
+
+  for (var i = 0, f; f = files[i]; i++) {
+
+    if (!f.type.match("image.*")) {
+      continue;
+    }
+
     var reader = new FileReader();
 
-    reader.onload = function (e) {
-      img.src = e.target.result;
-      reset();
-    };
-    reader.readAsDataURL(input.files[0]);
+    reader.onload = (function(theFile) {
+      return function(e) {
+        var can = document.getElementById("image");
+        var ctx = can.getContext("2d");
+
+        var img = new Image();
+        img.src = e.target.result;
+        img.name = theFile.name;
+
+        can.width = img.width;
+        can.height = img.height;
+        ctx.drawImage(img, 0, 0, img.width, img.height);
+        var data = ctx.getImageData(0, 0, can.width, can.height);
+        addHistory(data, "Load " + img.name, 0);
+      };
+    })(f);
+
+    reader.readAsDataURL(f);
   }
 }
 
@@ -41,7 +73,7 @@ $('#filters a').click(function(e) {
   setTimeout(function() {
     var startTime = new Date();
     switch (action) {
-      case 'invert' :
+      case 'invertion' :
         image.pixastic("invert");
         break;
       case 'dilation' :
@@ -51,22 +83,29 @@ $('#filters a').click(function(e) {
         image.pixastic("erosion");
         break;
     }
-    cleanResult();
     var endTime = new Date();
+    cleanResult();
     var duration = endTime.getTime() - startTime.getTime();
-    jQuery('#history').prepend(label + " - " + duration + "ms<br />");
+    addHistory(getCurrentImageData(), label, duration);
   }, 10);
 });
 
-$("#reset").click(function(e) {
+jQuery('#history a').live('click', function(e) {
   e.preventDefault();
-  reset();
+  var rel = jQuery(this).attr('rel');
+  var currentImageData = aryHistory[rel].data;
+  var canvas = document.getElementById("image");
+  var context = canvas.getContext("2d");
+  context.clearRect(0, 0, jQuery('#image').attr('width'), jQuery('#image').attr('height'));
+  context.putImageData(currentImageData, 0, 0);
 });
 
 $("#convert-to-png").click(function(e) {
   e.preventDefault();
   convertToPNG();
 });
+
+document.getElementById('file-loader').addEventListener('change', handleFileSelect, false);
 
 $(document).ready(function () {
   BrowserDetect.init();
