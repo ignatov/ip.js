@@ -92,10 +92,13 @@ $('#filters a').click(function(e) {
 jQuery('#history a').live('click', function(e) {
   e.preventDefault();
   var rel = jQuery(this).attr('rel');
-  var currentImageData = aryHistory[rel].data;
   var canvas = document.getElementById("image");
   var context = canvas.getContext("2d");
   context.clearRect(0, 0, jQuery('#image').attr('width'), jQuery('#image').attr('height'));
+
+  var currentImageData = aryHistory[rel].data;
+  context.width = currentImageData.width;
+  context.height = currentImageData.height;
   context.putImageData(currentImageData, 0, 0);
 });
 
