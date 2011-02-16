@@ -42,20 +42,20 @@ function handleFileSelect(evt) {
 
     var reader = new FileReader();
 
-    reader.onload = (function(theFile) {
+    reader.onloadend = (function(theFile) {
       return function(e) {
+
         var can = document.getElementById("image");
         var ctx = can.getContext("2d");
 
         var img = new Image();
+        img.onload = function() {
+          can.width = img.width;
+          can.height = img.height;
+          ctx.drawImage(img, 0, 0, img.width, img.height);
+          addHistory(getCurrentImageData(), "Load " + theFile.name, 0);
+        };
         img.src = e.target.result;
-        img.name = theFile.name;
-
-        can.width = img.width;
-        can.height = img.height;
-        ctx.drawImage(img, 0, 0, img.width, img.height);
-        var data = ctx.getImageData(0, 0, can.width, can.height);
-        addHistory(data, "Load " + img.name, 0);
       };
     })(f);
 
