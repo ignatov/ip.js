@@ -21,8 +21,8 @@ Pixastic.Actions.linearFilter = {
         ];
 
       var kernelWeight = 0;
-      for (var x = 0; x < 3; x++) {
-        for (var y = 0; y < 3; y++) {
+      for (var x = 0; x < kernel.length; x++) {
+        for (var y = 0; y < kernel.length; y++) {
           kernelWeight += kernel[x][y];
         }
       }
