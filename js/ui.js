@@ -81,6 +81,9 @@ $('#filters a').click(function(e) {
       case 'erosion' :
         image.pixastic("erosion");
         break;
+      case 'blur-3x3' :
+        image.pixastic("linearFilter");
+        break;
     }
     var endTime = new Date();
     cleanResult();

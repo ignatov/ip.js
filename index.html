@@ -15,20 +15,31 @@
 
 <section id="actions">
     <h3>Load file</h3>
+
     <div id="files">
         <input type='file' id="file-loader" size="10"/>
     </div>
-
-    <h3>Binary filters</h3>
     <div id="filters">
-        <ul>
-            <li><a href="#" id="invertion">Invertion</a></li>
-            <li><a href="#" id="dilation">Dilation</a></li>
-            <li><a href="#" id="erosion">Erosion</a></li>
-        </ul>
-    </div>
+        <h3>Binary filters</h3>
 
+        <div id="binary-filters">
+            <ul>
+                <li><a href="#" id="invertion">Invertion</a></li>
+                <li><a href="#" id="dilation">Dilation</a></li>
+                <li><a href="#" id="erosion">Erosion</a></li>
+            </ul>
+        </div>
+
+        <h3>Linear filters</h3>
+
+        <div id="linear-filters">
+            <ul>
+                <li><a href="#" id="blur-3x3">Blur 3x3</a></li>
+            </ul>
+        </div>
+    </div>
     <h3>Manipulations</h3>
+
     <div id="manipulations">
         <ul>
             <li><a href="#" id="convert-to-png">Convert to PNG</a></li>
@@ -54,6 +65,7 @@
 <script type="text/javascript" src="js/pixastic.custom.js"></script>
 <script type="text/javascript" src="js/dilation.js"></script>
 <script type="text/javascript" src="js/erosion.js"></script>
+<script type="text/javascript" src="js/linear-filter.js"></script>
 <script type="text/javascript" src="js/ui.js"></script>
 
 </body>
