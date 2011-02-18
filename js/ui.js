@@ -84,6 +84,16 @@ $('#filters a').click(function(e) {
       case 'blur-3x3' :
         image.pixastic("linearFilter");
         break;
+      case 'gaussian-blur':
+        var kernel = [
+          [1, 2, 3, 2, 1],
+          [2, 4, 5, 4, 2],
+          [3, 5, 6, 5, 3],
+          [2, 4, 5, 4, 2],
+          [1, 2, 3, 2, 1]
+        ];
+        image.pixastic("linearFilter", {kernel:kernel});
+        break;
     }
     var endTime = new Date();
     cleanResult();
