@@ -34,11 +34,32 @@
 
         <div id="linear-filters">
             <ul>
-                <li><a href="#" id="blur-3x3">Blur 3x3</a></li>
+                <li>
+                    <a href="#" id="blur_3x3">Blur 3x3</a>
+                    (<a href="#" id="blur_3x3_kernel_link">kernel</a>)
+                    <table id="blur_3x3_kernel" class="hidden">
+                        <tr>
+                            <td>3</td>
+                            <td>5</td>
+                            <td>3</td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>8</td>
+                            <td>5</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>5</td>
+                            <td>3</td>
+                        </tr>
+                    </table>
+                </li>
                 <li><a href="#" id="gaussian-blur">Gaussian blur</a></li>
             </ul>
         </div>
     </div>
+
     <h3>Manipulations</h3>
 
     <div id="manipulations">
@@ -62,6 +83,7 @@
 </section>
 
 <script type="text/javascript" src="js/jquery-1.5.js"></script>
+<script type="text/javascript" src="js/jquery.uitableedit.js"></script>
 <script type="text/javascript" src="js/browser-detect.js"></script>
 <script type="text/javascript" src="js/pixastic.custom.js"></script>
 <script type="text/javascript" src="js/dilation.js"></script>

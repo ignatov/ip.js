@@ -34,7 +34,7 @@ Pixastic.Actions.linearFilter = {
           var sumR = 0;
           var sumG = 0;
           var sumB = 0;
-          
+
           for (var i = -offset; i <= offset; i ++) {
             for (var j = -offset; j <= offset; j ++) {
               var r = dataCopy[((u + i) * rectangle.width + (v + j)) * 4];

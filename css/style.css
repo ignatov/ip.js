@@ -95,3 +95,7 @@ article {
     width: 770px;
     text-align: left;
 }
+
+td {
+    width: 20px;
+}

@@ -31,6 +31,19 @@ function getCurrentImageData() {
   return context.getImageData(0, 0, canvas.width, canvas.height);
 }
 
+function getKernelFromTable(selector) {
+  var s = selector + ' tr';
+  var kernel = [];
+  $(s).each(function(i, tr) {
+    var row = [];
+    $('td', tr).each(function(i, td) {
+      row.push(parseInt($(td).html()));
+    });
+    kernel.push(row);
+  });
+  return kernel;
+}
+
 function handleFileSelect(evt) {
   var files = evt.target.files;
 
@@ -81,9 +94,12 @@ $('#filters a').click(function(e) {
       case 'erosion' :
         image.pixastic("erosion");
         break;
-      case 'blur-3x3' :
-        image.pixastic("linearFilter");
+      case 'blur_3x3' :
+        image.pixastic("linearFilter", {kernel:getKernelFromTable("#blur_3x3_kernel")});
         break;
+      case 'blur_3x3_kernel_link':
+        $('#blur_3x3_kernel').toggle();
+        return;
       case 'gaussian-blur':
         var kernel = [
           [1, 2, 3, 2, 1],
@@ -119,6 +135,8 @@ $("#convert-to-png").click(function(e) {
   e.preventDefault();
   convertToPNG();
 });
+
+$.uiTableEdit($('#linear-filters table'));
 
 document.getElementById('file-loader').addEventListener('change', handleFileSelect, false);
 
