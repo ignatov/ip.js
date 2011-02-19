@@ -16,7 +16,7 @@ function addHistory(imagedata, label, duration) {
 }
 
 function convertToPNG() {
-  var canvas = document.getElementById("image");
+  var canvas = document.getElementById("canvas");
   var img = canvas.toDataURL("image/png");
   $("#result").html('<img src=' + img + ' /><br />Right click the image and select "save as" in order to save it.');
 }
@@ -26,7 +26,7 @@ function cleanResult() {
 }
 
 function getCurrentImageData() {
-  var canvas = document.getElementById("image");
+  var canvas = document.getElementById("canvas");
   var context = canvas.getContext("2d");
   return context.getImageData(0, 0, canvas.width, canvas.height);
 }
@@ -58,7 +58,7 @@ function handleFileSelect(evt) {
     reader.onloadend = (function(theFile) {
       return function(e) {
 
-        var can = document.getElementById("image");
+        var can = document.getElementById("canvas");
         var ctx = can.getContext("2d");
 
         var img = new Image();
@@ -80,34 +80,34 @@ $('#filters a').click(function(e) {
   e.preventDefault();
   var action = jQuery(this).attr('id');
   var label = jQuery(this).text();
-  var image = $("#image");
+  var canvas = $("#canvas");
 
   setTimeout(function() {
     var startTime = new Date();
     switch (action) {
       case 'inversion' :
-        image.pixastic("invert");
+        canvas.pixastic("invert");
         break;
       case 'dilation' :
-        image.pixastic("dilation");
+        canvas.pixastic("dilation");
         break;
       case 'erosion' :
-        image.pixastic("erosion");
+        canvas.pixastic("erosion");
         break;
       case 'blur_3x3' :
-        image.pixastic("linearFilter", {kernel:getKernelFromTable("#blur_3x3_kernel")});
+        canvas.pixastic("linearFilter", {kernel:getKernelFromTable("#blur_3x3_kernel")});
         break;
       case 'blur_3x3_kernel_link':
         $('#blur_3x3_kernel').toggle();
         return;
       case 'gaussian_blur':
-        image.pixastic("linearFilter", {kernel:getKernelFromTable('#gaussian_blur_kernel')});
+        canvas.pixastic("linearFilter", {kernel:getKernelFromTable('#gaussian_blur_kernel')});
         break;
       case 'gaussian_blur_kernel_link':
         $('#gaussian_blur_kernel').toggle();
         return;
       case 'custom_5x5' :
-        image.pixastic("linearFilter", {kernel:getKernelFromTable("#custom_5x5_kernel")});
+        canvas.pixastic("linearFilter", {kernel:getKernelFromTable("#custom_5x5_kernel")});
         break;
       case 'custom_5x5_kernel_link':
         $('#custom_5x5_kernel').toggle();
@@ -123,9 +123,9 @@ $('#filters a').click(function(e) {
 jQuery('#history a').live('click', function(e) {
   e.preventDefault();
   var rel = jQuery(this).attr('rel');
-  var canvas = document.getElementById("image");
+  var canvas = document.getElementById("canvas");
   var context = canvas.getContext("2d");
-  context.clearRect(0, 0, jQuery('#image').attr('width'), jQuery('#image').attr('height'));
+  context.clearRect(0, 0, jQuery('#canvas').attr('width'), jQuery('#canvas').attr('height'));
 
   var currentImageData = aryHistory[rel].data;
   context.width = currentImageData.width;
