@@ -142,7 +142,41 @@ $.uiTableEdit($('#linear_filters table'));
 
 document.getElementById('file_loader').addEventListener('change', handleFileSelect, false);
 
+function createKernelTable(table, array) {
+  for (var i = 0; i < array.length; i++) {
+    var tr = $("<tr>");
+    for (var j = 0; j < array[0].length; j++)
+      $("<td>").text(array[i][j]).appendTo(tr);
+    tr.appendTo(table);
+  }
+}
+
+function createKernels() {
+  createKernelTable($("#blur_3x3_kernel"), [
+    [3, 5, 3],
+    [5, 8, 5],
+    [3, 5, 3]
+  ]);
+
+  createKernelTable($("#gaussian_blur_kernel"), [
+    [1, 2, 3, 2, 1],
+    [2, 4, 5, 4, 2],
+    [3, 5, 6, 5, 3],
+    [2, 4, 5, 4, 2],
+    [1, 2, 3, 2, 1]
+  ]);
+
+  createKernelTable($("#custom_5x5_kernel"), [
+    [1, 1, 1, 1, 1],
+    [1, 1, 1, 1, 1],
+    [1, 1, 1, 1, 1],
+    [1, 1, 1, 1, 1],
+    [1, 1, 1, 1, 1]
+  ]);
+}
+
 $(document).ready(function () {
+  createKernels();
   BrowserDetect.init();
   if (BrowserDetect.browser === "Firefox")
     netscape.security.PrivilegeManager.enablePrivilege("UniversalBrowserRead");
