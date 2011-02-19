@@ -106,6 +106,12 @@ $('#filters a').click(function(e) {
       case 'gaussian_blur_kernel_link':
         $('#gaussian_blur_kernel').toggle();
         return;
+      case 'custom_5x5' :
+        image.pixastic("linearFilter", {kernel:getKernelFromTable("#custom_5x5_kernel")});
+        break;
+      case 'custom_5x5_kernel_link':
+        $('#custom_5x5_kernel').toggle();
+        return;
     }
     var endTime = new Date();
     cleanResult();
