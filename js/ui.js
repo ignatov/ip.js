@@ -100,16 +100,12 @@ $('#filters a').click(function(e) {
       case 'blur_3x3_kernel_link':
         $('#blur_3x3_kernel').toggle();
         return;
-      case 'gaussian-blur':
-        var kernel = [
-          [1, 2, 3, 2, 1],
-          [2, 4, 5, 4, 2],
-          [3, 5, 6, 5, 3],
-          [2, 4, 5, 4, 2],
-          [1, 2, 3, 2, 1]
-        ];
-        image.pixastic("linearFilter", {kernel:kernel});
+      case 'gaussian_blur':
+        image.pixastic("linearFilter", {kernel:getKernelFromTable('#gaussian_blur_kernel')});
         break;
+      case 'gaussian_blur_kernel_link':
+        $('#gaussian_blur_kernel').toggle();
+        return;
     }
     var endTime = new Date();
     cleanResult();
