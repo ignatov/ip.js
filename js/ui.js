@@ -85,7 +85,7 @@ $('#filters a').click(function(e) {
   setTimeout(function() {
     var startTime = new Date();
     switch (action) {
-      case 'invertion' :
+      case 'inversion' :
         image.pixastic("invert");
         break;
       case 'dilation' :
@@ -133,14 +133,14 @@ jQuery('#history a').live('click', function(e) {
   context.putImageData(currentImageData, 0, 0);
 });
 
-$("#convert-to-png").click(function(e) {
+$("#convert_to_png").click(function(e) {
   e.preventDefault();
   convertToPNG();
 });
 
-$.uiTableEdit($('#linear-filters table'));
+$.uiTableEdit($('#linear_filters table'));
 
-document.getElementById('file-loader').addEventListener('change', handleFileSelect, false);
+document.getElementById('file_loader').addEventListener('change', handleFileSelect, false);
 
 $(document).ready(function () {
   BrowserDetect.init();
