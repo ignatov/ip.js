@@ -3,14 +3,14 @@
  * Date: Feb 13, 2011
  */
 
-var aryHistory = [];
+var history = [];
 
 function addHistory(imagedata, label, duration) {
-  aryHistory.push({data: imagedata, label: label, duration: duration});
+  history.push({data: imagedata, label: label, duration: duration});
   jQuery('#history ul').empty();
-  for (var i = aryHistory.length - 1; i >= 0; i--) {
+  for (var i = history.length - 1; i >= 0; i--) {
     jQuery('#history ul').append(
-            '<li><a href="#" class="history" rel="' + i + '">' + aryHistory[i].label + ' (' + aryHistory[i].duration + ' ms)' + '</a></li>'
+            '<li><a href="#" class="history" rel="' + i + '">' + history[i].label + ' (' + history[i].duration + ' ms)' + '</a></li>'
             );
   }
 }
@@ -127,7 +127,7 @@ jQuery('#history a').live('click', function(e) {
   var context = canvas.getContext("2d");
   context.clearRect(0, 0, jQuery('#canvas').attr('width'), jQuery('#canvas').attr('height'));
 
-  var currentImageData = aryHistory[rel].data;
+  var currentImageData = history[rel].data;
   context.width = currentImageData.width;
   context.height = currentImageData.height;
   context.putImageData(currentImageData, 0, 0);
