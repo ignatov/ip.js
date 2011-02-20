@@ -82,6 +82,7 @@ section#actions {
     float: left;
     width: 178px;
     text-align: left;
+    margin-bottom: 10px;
 }
 
 section#right {
@@ -98,4 +99,10 @@ article {
 
 td {
     width: 20px;
+}
+
+footer {
+    display: block;
+    clear: both !important;
+    width: 1238px;
 }
