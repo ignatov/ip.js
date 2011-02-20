@@ -128,8 +128,8 @@ jQuery('#history a').live('click', function(e) {
   context.clearRect(0, 0, jQuery('#canvas').attr('width'), jQuery('#canvas').attr('height'));
 
   var currentImageData = historyArray[rel].data;
-  context.width = currentImageData.width;
-  context.height = currentImageData.height;
+  canvas.width = currentImageData.width;
+  canvas.height = currentImageData.height;
   context.putImageData(currentImageData, 0, 0);
 });
 
