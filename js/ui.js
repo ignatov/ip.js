@@ -10,7 +10,7 @@ function addHistory(imagedata, label, duration) {
   jQuery('#history ul').empty();
   for (var i = historyArray.length - 1; i >= 0; i--) {
     jQuery('#history ul').append(
-            '<li><a href="#" class="history" rel="' + i + '">' + historyArray[i].label + ' (' + historyArray[i].duration + ' ms)' + '</a></li>'
+            '<li><a href="#" class="history" rel="' + i + '">' + historyArray[i].label + '</a></li>'
             );
   }
 }
@@ -38,6 +38,19 @@ function getKernelFromTable(selector) {
     var row = [];
     $('td', tr).each(function(i, td) {
       row.push(parseInt($(td).html()));
+    });
+    kernel.push(row);
+  });
+  return kernel;
+}
+
+function getKernelFromInputTable(selector) {
+  var s = selector + ' tr';
+  var kernel = [];
+  $(s).each(function(i, tr) {
+    var row = [];
+    $('td label input', tr).each(function(i, td) {
+      row.push(parseInt($(td).val() || 0));
     });
     kernel.push(row);
   });
@@ -112,6 +125,11 @@ $('#filters a').click(function(e) {
       case 'custom_5x5_kernel_link':
         $('#custom_5x5_kernel').toggle();
         return;
+      case 'add_3x3_filter_dialog':
+        return;
+      case 'clear_all':
+        deleteCustomFilters();
+        return;
     }
     var endTime = new Date();
     cleanResult();
@@ -151,6 +169,19 @@ function createKernelTable(table, array) {
   }
 }
 
+function createInputKernelTable(table, dim) {
+  for (var i = 0; i < dim; i++) {
+    var tr = $("<tr>");
+    for (var j = 0; j < dim; j++)
+      $("<td><input type='text' size='2'/></td>").appendTo(tr);
+    tr.appendTo(table);
+  }
+}
+
+function deleteCustomFilters() {
+  localStorage.clear();
+}
+
 function createKernels() {
   createKernelTable($("#blur_3x3_kernel"), [
     [3, 5, 3],
@@ -175,9 +206,54 @@ function createKernels() {
   ]);
 }
 
+function saveKernel(nameSelector, kernelTableSelector) {
+  var filter = new Filter(
+          $(nameSelector).val(),
+          getKernelFromInputTable(kernelTableSelector));
+
+  if (saveFilterToLocalStorage(filter))
+    addFilterToList($('#linear_filters_list'), filter);
+}
+
+function addFilterToList(list, filter) {
+  list.append(
+          '<li><a href="#" id="\'' + filter.id + '\'" onclick="applyFilter(\'' + filter.id + '\')">' + filter.name + '</a></li>'
+          );
+}
+
+function applyFilter(id) {
+  var filter = JSON.parse(localStorage.getItem(id));
+  var canvas = $("#canvas");
+  setTimeout(function() {
+    canvas.pixastic("linearFilter", {kernel:filter.kernel});
+    cleanResult();
+    addHistory(getCurrentImageData(), filter.name, 0);
+  }, 10);
+}
+
+function displayFiltersFromStorage() {
+  for (var i = 0; i <= localStorage.length - 1; i++) {
+    var filter = JSON.parse(localStorage.getItem(localStorage.key(i)));
+    addFilterToList($('#linear_filters_list'), filter);
+  }
+}
+
+function addDialogEvent() {
+  $('#add_3x3_filter_dialog').simpleDialog({
+    opacity: 0.3,
+    duration: 100,
+    title: 'Add 3x3 linear filter',
+    close: function (e, target) {
+      saveKernel('#3x3_filter_name', '#3x3_filter_kernel');
+    }
+  });
+}
+
 $(document).ready(function () {
   createKernels();
   BrowserDetect.init();
   if (BrowserDetect.browser === "Firefox")
     netscape.security.PrivilegeManager.enablePrivilege("UniversalBrowserRead");
+  addDialogEvent();
+  displayFiltersFromStorage();
 });
