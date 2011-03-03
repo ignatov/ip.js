@@ -127,6 +127,8 @@ $('#filters a').click(function(e) {
         return;
       case 'add_3x3_filter_dialog':
         return;
+      case 'add_5x5_filter_dialog':
+        return;
       case 'clear_all':
         deleteCustomFilters();
         return;
@@ -256,6 +258,15 @@ function addDialogEvent() {
     title: 'Add 3x3 linear filter',
     close: function (e, target) {
       saveKernel('#3x3_filter_name', '#3x3_filter_kernel');
+    }
+  });
+
+  $('#add_5x5_filter_dialog').simpleDialog({
+    opacity: 0.3,
+    duration: 100,
+    title: 'Add 5x5 linear filter',
+    close: function (e, target) {
+      saveKernel('#5x5_filter_name', '#5x5_filter_kernel');
     }
   });
 }
