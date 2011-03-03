@@ -28,7 +28,20 @@ function cleanResult() {
 function getCurrentImageData() {
   var canvas = document.getElementById("canvas");
   var context = canvas.getContext("2d");
-  return context.getImageData(0, 0, canvas.width, canvas.height);
+
+  var imgd = null;
+  try {
+    try {
+      imgd = context.getImageData(0, 0, canvas.width, canvas.height);
+    } catch(e) {
+      netscape.security.PrivilegeManager.enablePrivilege("UniversalBrowserRead");
+      imgd = context.getImageData(0, 0, canvas.width, canvas.height);
+    }
+  } catch(e) {
+    throw new Error("Unable to access image data: " + e);
+  }
+
+  return imgd;
 }
 
 function getKernelFromInputTable(selector) {
@@ -239,9 +252,6 @@ function addDialogEvent() {
 
 $(document).ready(function () {
   createKernels();
-  BrowserDetect.init();
-  if (BrowserDetect.browser === "Firefox")
-    netscape.security.PrivilegeManager.enablePrivilege("UniversalBrowserRead");
   addDialogEvent();
   displayFiltersFromStorage();
 });
