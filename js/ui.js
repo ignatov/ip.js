@@ -215,9 +215,19 @@ function addFilterToList(list, filter) {
           '<li id="li_' + filter.id + '">' +
                   '<a href="#" id="\'' + filter.id + '\'" onclick="applyFilter(\'' + filter.id + '\')">' + filter.name + '</a>' +
                   ' ' +
+                  '(<a href="#" id="' + filter.id + '_kernel_link">kernel</a>)' +
+                  ' ' +
                   '<a href="#" onclick="deleteFilter(\'' + filter.id + '\')">delete</a>' +
+                  '<table id="' + filter.id + '_kernel" class="hidden"></table>' +
                   '</li>'
           );
+
+  createKernelTable($("#" + filter.id + "_kernel"), filter.kernel);
+
+  $("#" + filter.id + "_kernel_link").live('click', function(e) {
+    e.preventDefault();
+    $("#" + filter.id + "_kernel").toggle();
+  });
 }
 
 function applyFilter(id) {
