@@ -127,8 +127,6 @@ $("#convert_to_png").click(function(e) {
   convertToPNG();
 });
 
-//$.uiTableEdit($('#linear_filters table'));
-
 document.getElementById('file_loader').addEventListener('change', handleFileSelect, false);
 
 function createKernelTable(table, array) {
