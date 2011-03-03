@@ -31,19 +31,6 @@ function getCurrentImageData() {
   return context.getImageData(0, 0, canvas.width, canvas.height);
 }
 
-function getKernelFromTable(selector) {
-  var s = selector + ' tr';
-  var kernel = [];
-  $(s).each(function(i, tr) {
-    var row = [];
-    $('td', tr).each(function(i, td) {
-      row.push(parseInt($(td).html()));
-    });
-    kernel.push(row);
-  });
-  return kernel;
-}
-
 function getKernelFromInputTable(selector) {
   var s = selector + ' tr';
   var kernel = [];
@@ -107,18 +94,6 @@ $('#filters a').click(function(e) {
       case 'erosion' :
         canvas.pixastic("erosion");
         break;
-      case 'blur_3x3' :
-        canvas.pixastic("linearFilter", {kernel:getKernelFromTable("#blur_3x3_kernel")});
-        break;
-      case 'blur_3x3_kernel_link':
-        $('#blur_3x3_kernel').toggle();
-        return;
-      case 'gaussian_blur':
-        canvas.pixastic("linearFilter", {kernel:getKernelFromTable('#gaussian_blur_kernel')});
-        break;
-      case 'gaussian_blur_kernel_link':
-        $('#gaussian_blur_kernel').toggle();
-        return;
       case 'add_3x3_filter_dialog':
         return;
       case 'add_5x5_filter_dialog':
@@ -152,7 +127,7 @@ $("#convert_to_png").click(function(e) {
   convertToPNG();
 });
 
-$.uiTableEdit($('#linear_filters table'));
+//$.uiTableEdit($('#linear_filters table'));
 
 document.getElementById('file_loader').addEventListener('change', handleFileSelect, false);
 
@@ -169,7 +144,7 @@ function createInputKernelTable(table, dim) {
   for (var i = 0; i < dim; i++) {
     var tr = $("<tr>");
     for (var j = 0; j < dim; j++)
-      $("<td><input type='text' size='2' value='1'/></td>").appendTo(tr);
+      $('<td><label><input type="text" size="2" value="1"/></label></td>').appendTo(tr);
     tr.appendTo(table);
   }
 }
@@ -186,19 +161,18 @@ function deleteFilter(id) {
 }
 
 function createKernels() {
-  createKernelTable($("#blur_3x3_kernel"), [
-    [3, 5, 3],
-    [5, 8, 5],
-    [3, 5, 3]
-  ]);
-
-  createKernelTable($("#gaussian_blur_kernel"), [
+  saveFilterToLocalStorage(new Filter("Gaussian blur 5x5", [
     [1, 2, 3, 2, 1],
     [2, 4, 5, 4, 2],
     [3, 5, 6, 5, 3],
     [2, 4, 5, 4, 2],
     [1, 2, 3, 2, 1]
-  ]);
+  ]));
+  saveFilterToLocalStorage(new Filter("Blur 3x3", [
+    [3, 5, 3],
+    [5, 8, 5],
+    [3, 5, 3]
+  ]));
 }
 
 function saveKernel(nameSelector, kernelTableSelector) {
