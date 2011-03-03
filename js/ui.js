@@ -179,7 +179,14 @@ function createInputKernelTable(table, dim) {
 }
 
 function deleteCustomFilters() {
+  for (var i = 0; i <= localStorage.length - 1; i++)
+    $('#li_' + localStorage.key(i)).remove();
   localStorage.clear();
+}
+
+function deleteFilter(id) {
+  $('#li_' + id).remove();
+  localStorage.removeItem(id);
 }
 
 function createKernels() {
@@ -217,7 +224,11 @@ function saveKernel(nameSelector, kernelTableSelector) {
 
 function addFilterToList(list, filter) {
   list.append(
-          '<li><a href="#" id="\'' + filter.id + '\'" onclick="applyFilter(\'' + filter.id + '\')">' + filter.name + '</a></li>'
+          '<li id="li_' + filter.id + '">' +
+                  '<a href="#" id="\'' + filter.id + '\'" onclick="applyFilter(\'' + filter.id + '\')">' + filter.name + '</a>' +
+                  ' ' +
+                  '<a href="#" onclick="deleteFilter(\'' + filter.id + '\')">delete</a>' +
+                  '</li>'
           );
 }
 
