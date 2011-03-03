@@ -169,7 +169,7 @@ function createInputKernelTable(table, dim) {
   for (var i = 0; i < dim; i++) {
     var tr = $("<tr>");
     for (var j = 0; j < dim; j++)
-      $("<td><input type='text' size='2'/></td>").appendTo(tr);
+      $("<td><input type='text' size='2' value='1'/></td>").appendTo(tr);
     tr.appendTo(table);
   }
 }
@@ -248,6 +248,9 @@ function displayFiltersFromStorage() {
 }
 
 function addDialogEvent() {
+  createInputKernelTable($("#3x3_filter_kernel"), 3);
+  createInputKernelTable($("#5x5_filter_kernel"), 5);
+
   $('#add_3x3_filter_dialog').simpleDialog({
     opacity: 0.3,
     duration: 100,
