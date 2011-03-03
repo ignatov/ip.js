@@ -202,6 +202,7 @@ function addFilterToList(list, filter) {
   });
 }
 
+//noinspection JSUnusedGlobalSymbols
 function applyFilter(id) {
   var filter = JSON.parse(localStorage.getItem(id));
   var canvas = $("#canvas");
