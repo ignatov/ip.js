@@ -45,11 +45,6 @@
                     (<a href="#" id="gaussian_blur_kernel_link">kernel</a>)
                     <table id="gaussian_blur_kernel" class="hidden"></table>
                 </li>
-                <li>
-                    <a href="#" id="custom_5x5">Custom 5x5 filter</a>
-                    (<a href="#" id="custom_5x5_kernel_link">kernel</a>)
-                    <table id="custom_5x5_kernel" class="hidden"></table>
-                </li>
             </ul>
             <hr/>
             <ul>
@@ -110,6 +105,9 @@
         </tr>
         </tbody>
     </table>
+    <br>
+    <input type='submit' value="Save" onclick="saveKernel('#3x3_filter_name', '#3x3_filter_kernel')" class="close"/>
+    <input type='submit' value="Cancel" class="close"/>
 </div>
 
 <div id="add_5x5_filter_form" class="hidden">
@@ -155,6 +153,9 @@
         </tr>
         </tbody>
     </table>
+    <br>
+    <input type='submit' value="Save" onclick="saveKernel('#5x5_filter_name', '#5x5_filter_kernel')" class="close"/>
+    <input type='submit' value="Cancel" class="close"/>
 </div>
 
 <script type="text/javascript" src="js/jquery-1.5.js"></script>

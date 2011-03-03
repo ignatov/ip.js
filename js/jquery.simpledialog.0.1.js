@@ -185,7 +185,7 @@
 
           _container.hover(
             function () {
-              $(this).append(sc);
+//              $(this).append(sc);
               var scObj = $('#sd_closelabel');
               scObj
                 .css({

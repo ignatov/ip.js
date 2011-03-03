@@ -119,12 +119,6 @@ $('#filters a').click(function(e) {
       case 'gaussian_blur_kernel_link':
         $('#gaussian_blur_kernel').toggle();
         return;
-      case 'custom_5x5' :
-        canvas.pixastic("linearFilter", {kernel:getKernelFromTable("#custom_5x5_kernel")});
-        break;
-      case 'custom_5x5_kernel_link':
-        $('#custom_5x5_kernel').toggle();
-        return;
       case 'add_3x3_filter_dialog':
         return;
       case 'add_5x5_filter_dialog':
@@ -205,14 +199,6 @@ function createKernels() {
     [2, 4, 5, 4, 2],
     [1, 2, 3, 2, 1]
   ]);
-
-  createKernelTable($("#custom_5x5_kernel"), [
-    [1, 1, 1, 1, 1],
-    [1, 1, 1, 1, 1],
-    [1, 1, 1, 1, 1],
-    [1, 1, 1, 1, 1],
-    [1, 1, 1, 1, 1]
-  ]);
 }
 
 function saveKernel(nameSelector, kernelTableSelector) {
@@ -255,19 +241,13 @@ function addDialogEvent() {
   $('#add_3x3_filter_dialog').simpleDialog({
     opacity: 0.3,
     duration: 100,
-    title: 'Add 3x3 linear filter',
-    close: function (e, target) {
-      saveKernel('#3x3_filter_name', '#3x3_filter_kernel');
-    }
+    title: 'Add 3x3 linear filter'
   });
 
   $('#add_5x5_filter_dialog').simpleDialog({
     opacity: 0.3,
     duration: 100,
-    title: 'Add 5x5 linear filter',
-    close: function (e, target) {
-      saveKernel('#5x5_filter_name', '#5x5_filter_kernel');
-    }
+    title: 'Add 5x5 linear filter'
   });
 }
 
