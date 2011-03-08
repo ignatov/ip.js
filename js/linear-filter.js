@@ -20,12 +20,6 @@ Pixastic.Actions.linearFilter = {
           [3,   5,   3]
         ];
 
-      var divider;
-      if (typeof params.options.divider != "undefined")
-        divider = params.options.divider;
-      else
-        divider = calculateDivider(kernel);
-
       function calculateDivider(kernel) {
         var divider = 0;
         for (var x = 0; x < kernel.length; x++) {
@@ -35,6 +29,12 @@ Pixastic.Actions.linearFilter = {
         }
         return divider;
       }
+
+      var divider;
+      if (typeof params.options.divider != "undefined")
+        divider = params.options.divider;
+      else
+        divider = calculateDivider(kernel);
 
       var offset = Math.floor(kernel.length / 2);
 
