@@ -5,14 +5,17 @@
 
 var historyArray = [];
 
-function addHistory(imagedata, label, duration) {
-  historyArray.push({data: imagedata, label: label, duration: duration});
+function redrawHistory(history) {
   jQuery('#history ul').empty();
-  for (var i = historyArray.length - 1; i >= 0; i--) {
+  for (var i = history.length - 1; i >= 0; i--) {
     jQuery('#history ul').append(
-            '<li><a href="#" class="history" rel="' + i + '">' + historyArray[i].label + '</a></li>'
+            '<li><a href="#" class="history" class="active" rel="' + i + '">' + history[i].label + '</a></li>'
             );
   }
+}
+function addHistory(imagedata, label, duration) {
+  historyArray.push({data: imagedata, label: label, duration: duration, active: true});
+  redrawHistory(historyArray);
 }
 
 function convertToPNG() {
@@ -79,6 +82,7 @@ function handleFileSelect(evt) {
           can.width = img.width;
           can.height = img.height;
           ctx.drawImage(img, 0, 0, img.width, img.height);
+          historyArray = [];
           addHistory(getCurrentImageData(), "Load " + theFile.name, 0);
         };
         img.src = e.target.result;
@@ -124,7 +128,7 @@ $('#filters a').click(function(e) {
 
 jQuery('#history a').live('click', function(e) {
   e.preventDefault();
-  var rel = jQuery(this).attr('rel');
+  var rel = parseInt(jQuery(this).attr('rel'));
   var canvas = document.getElementById("canvas");
   var context = canvas.getContext("2d");
   context.clearRect(0, 0, jQuery('#canvas').attr('width'), jQuery('#canvas').attr('height'));
@@ -133,6 +137,9 @@ jQuery('#history a').live('click', function(e) {
   canvas.width = currentImageData.width;
   canvas.height = currentImageData.height;
   context.putImageData(currentImageData, 0, 0);
+
+  historyArray = historyArray.slice(0, rel + 1);
+  redrawHistory(historyArray);
 });
 
 $("#convert_to_png").click(function(e) {
@@ -186,13 +193,21 @@ function createKernels() {
   ], undefined).save();
 }
 
+
 function saveKernel(nameSelector, kernelTableSelector, dividerSelector) {
+  function getDivider(dividerSelector) {
+    var val = parseFloat($(dividerSelector).val());
+    if (val == 0)
+      return undefined;
+    return val;
+  }
+
   var filter = new Filter(
           $(nameSelector).val(),
           getKernelFromInputTable(kernelTableSelector),
-          parseFloat($(dividerSelector).val()));
+          getDivider(dividerSelector));
 
-  if (saveFilterToLocalStorage(filter))
+  if (filter.save())
     addFilterToList($('#linear_filters_list'), filter);
 }
 
