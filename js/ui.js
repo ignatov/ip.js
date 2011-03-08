@@ -50,7 +50,7 @@ function getKernelFromInputTable(selector) {
   $(s).each(function(i, tr) {
     var row = [];
     $('td label input', tr).each(function(i, td) {
-      row.push(parseInt($(td).val() || 0));
+      row.push(parseFloat($(td).val() || 0));
     });
     kernel.push(row);
   });
