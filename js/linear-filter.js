@@ -20,11 +20,20 @@ Pixastic.Actions.linearFilter = {
           [3,   5,   3]
         ];
 
-      var kernelWeight = 0;
-      for (var x = 0; x < kernel.length; x++) {
-        for (var y = 0; y < kernel.length; y++) {
-          kernelWeight += kernel[x][y];
+      var divider;
+      if (typeof params.options.divider != "undefined")
+        divider = params.options.divider;
+      else
+        divider = calculateDivider(kernel);
+
+      function calculateDivider(kernel) {
+        var divider = 0;
+        for (var x = 0; x < kernel.length; x++) {
+          for (var y = 0; y < kernel.length; y++) {
+            divider += kernel[x][y];
+          }
         }
+        return divider;
       }
 
       var offset = Math.floor(kernel.length / 2);
@@ -47,9 +56,9 @@ Pixastic.Actions.linearFilter = {
             }
           }
 
-          data[(u * rectangle.width + v) * 4] = Math.floor(sumR / kernelWeight) > 255 ? 255 : Math.floor(sumR / kernelWeight);
-          data[(u * rectangle.width + v) * 4 + 1] = Math.floor(sumG / kernelWeight) > 255 ? 255 : Math.floor(sumG / kernelWeight);
-          data[(u * rectangle.width + v) * 4 + 2] = Math.floor(sumB / kernelWeight) > 255 ? 255 : Math.floor(sumB / kernelWeight);
+          data[(u * rectangle.width + v) * 4] = Math.floor(sumR / divider) > 255 ? 255 : Math.floor(sumR / divider);
+          data[(u * rectangle.width + v) * 4 + 1] = Math.floor(sumG / divider) > 255 ? 255 : Math.floor(sumG / divider);
+          data[(u * rectangle.width + v) * 4 + 2] = Math.floor(sumB / divider) > 255 ? 255 : Math.floor(sumB / divider);
         }
       }
     }

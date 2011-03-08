@@ -178,18 +178,19 @@ function createKernels() {
     [3, 5, 6, 5, 3],
     [2, 4, 5, 4, 2],
     [1, 2, 3, 2, 1]
-  ]));
+  ], 1));
   saveFilterToLocalStorage(new Filter("Blur 3x3", [
     [3, 5, 3],
     [5, 8, 5],
     [3, 5, 3]
-  ]));
+  ], 1));
 }
 
-function saveKernel(nameSelector, kernelTableSelector) {
+function saveKernel(nameSelector, kernelTableSelector, dividerSelector) {
   var filter = new Filter(
           $(nameSelector).val(),
-          getKernelFromInputTable(kernelTableSelector));
+          getKernelFromInputTable(kernelTableSelector),
+          parseFloat($(dividerSelector).val()));
 
   if (saveFilterToLocalStorage(filter))
     addFilterToList($('#linear_filters_list'), filter);
@@ -200,10 +201,14 @@ function addFilterToList(list, filter) {
           '<li id="li_' + filter.id + '">' +
                   '<a href="#" id="\'' + filter.id + '\'" onclick="applyFilter(\'' + filter.id + '\')">' + filter.name + '</a>' +
                   ' ' +
-                  '(<a href="#" id="' + filter.id + '_kernel_link">kernel</a>)' +
+                  '(<a href="#" id="' + filter.id + '_kernel_link">options</a>)' +
                   ' ' +
                   '<a href="#" onclick="deleteFilter(\'' + filter.id + '\')">delete</a>' +
-                  '<table id="' + filter.id + '_kernel" class="hidden"></table>' +
+                  '<div id="' + filter.id + '_options" class="hidden">' +
+                  'Divider: <span id="' + filter.id + '_divider">' + filter.divider + '</span>' +
+                  '<br>' +
+                  '<table id="' + filter.id + '_kernel"></table>' +
+                  '</div>' +
                   '</li>'
           );
 
@@ -211,7 +216,7 @@ function addFilterToList(list, filter) {
 
   $("#" + filter.id + "_kernel_link").live('click', function(e) {
     e.preventDefault();
-    $("#" + filter.id + "_kernel").toggle();
+    $("#" + filter.id + "_options").toggle();
   });
 }
 
@@ -220,7 +225,7 @@ function applyFilter(id) {
   var filter = JSON.parse(localStorage.getItem(id));
   var canvas = $("#canvas");
   setTimeout(function() {
-    canvas.pixastic("linearFilter", {kernel:filter.kernel});
+    canvas.pixastic("linearFilter", {kernel:filter.kernel, divider:filter.divider});
     cleanResult();
     addHistory(getCurrentImageData(), filter.name, 0);
   }, 10);
