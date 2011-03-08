@@ -172,18 +172,18 @@ function deleteFilter(id) {
 }
 
 function createKernels() {
-  saveFilterToLocalStorage(new Filter("Gaussian blur 5x5", [
+  new Filter("Gaussian blur 5x5", [
     [1, 2, 3, 2, 1],
     [2, 4, 5, 4, 2],
     [3, 5, 6, 5, 3],
     [2, 4, 5, 4, 2],
     [1, 2, 3, 2, 1]
-  ], 1));
-  saveFilterToLocalStorage(new Filter("Blur 3x3", [
+  ], undefined).save();
+  new Filter("Blur 3x3", [
     [3, 5, 3],
     [5, 8, 5],
     [3, 5, 3]
-  ], 1));
+  ], undefined).save();
 }
 
 function saveKernel(nameSelector, kernelTableSelector, dividerSelector) {
