@@ -84,6 +84,7 @@ function handleFileSelect(evt) {
           ctx.drawImage(img, 0, 0, img.width, img.height);
           historyArray = [];
           addHistory(getCurrentImageData(), "Load " + theFile.name, 0);
+          cleanResult();
         };
         img.src = e.target.result;
       };
@@ -140,6 +141,7 @@ jQuery('#history a').live('click', function(e) {
 
   historyArray = historyArray.slice(0, rel + 1);
   redrawHistory(historyArray);
+  cleanResult();
 });
 
 $("#convert_to_png").click(function(e) {
