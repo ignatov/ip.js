@@ -21,6 +21,16 @@ $('#filters a').click(function(e) {
       case 'erosion' :
         canvas.pixastic("erosion");
         break;
+      case 'white_noise' :
+        canvas.pixastic("whiteNoise", {
+          probability: parseFloat($("#white_noise_probability").val()),
+          amount: parseInt($("#white_noise_amount").val()),
+          mono: $("#white_noise_mono").attr("checked")
+        });
+        break;
+      case 'white_noise_options_link':
+        $("#white_noise_options").toggle();
+        return;
       case 'add_3x3_filter_dialog':
         return;
       case 'add_5x5_filter_dialog':

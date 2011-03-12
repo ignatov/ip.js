@@ -31,6 +31,24 @@
             </ul>
         </div>
 
+        <h3>Distortion filters</h3>
+
+        <div id="distortion_filters">
+            <ul>
+                <li>
+                    <a href="#" id="white_noise">White noise</a> (<a href="#" id="white_noise_options_link">options</a>)
+                    <div id="white_noise_options" class="hidden">
+                        <label>Probability: <input type="text" value="0.7" size="1" id="white_noise_probability">
+                            (0 &mdash; 1)</label><br>
+                        <label>Amount:
+                            <input type="text" value="100" size="2" id="white_noise_amount">
+                            (0 &mdash; 255)</label><br>
+                        <label>Mono: <input type="checkbox" id="white_noise_mono" checked="true"></label>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
         <h3>Linear filters</h3>
 
         <div id="linear_filters">
@@ -109,6 +127,7 @@
 <script type="text/javascript" src="js/dilation.js"></script>
 <script type="text/javascript" src="js/erosion.js"></script>
 <script type="text/javascript" src="js/linear-filter.js"></script>
+<script type="text/javascript" src="js/white-noise.js"></script>
 <script type="text/javascript" src="js/filter.js"></script>
 <script type="text/javascript" src="js/ip.js"></script>
 <script type="text/javascript" src="js/ui.js"></script>
