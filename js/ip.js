@@ -24,7 +24,7 @@ var ip = function() {
     }
   }
 
-  function createKernels() {
+  function createDefaultFilters() {
     new Filter("Gaussian blur 5x5", [
       [1, 2, 3, 2, 1],
       [2, 4, 5, 4, 2],
@@ -36,6 +36,11 @@ var ip = function() {
       [3, 5, 3],
       [5, 8, 5],
       [3, 5, 3]
+    ], undefined).save();
+    new Filter("Edge detection 3x3", [
+      [ 0, -1,  0],
+      [-1,  4, -1],
+      [ 0, -1,  0]
     ], undefined).save();
   }
 
@@ -111,7 +116,7 @@ var ip = function() {
 
   return {
     init: function() {
-      createKernels();
+      createDefaultFilters();
       addDialogEvent();
       displayFiltersFromStorage();
     },
@@ -186,7 +191,7 @@ var ip = function() {
       return imgd;
     },
 
-    deleteCustomFilters: function() {
+    deleteAllFilters: function() {
       for (var i = 0; i <= localStorage.length - 1; i++)
         $('#li_' + localStorage.key(i)).remove();
       localStorage.clear();
@@ -196,7 +201,7 @@ var ip = function() {
       return historyArray[id];
     },
 
-    sliceHistory: function(id) {
+    updateHistory: function(id) {
       historyArray = historyArray.slice(0, id + 1);
       redrawHistory(historyArray);
       ip.cleanResult();
@@ -211,7 +216,7 @@ var ip = function() {
       }, 10);
     },
 
-    saveKernel: function(nameSelector, kernelTableSelector, dividerSelector) {
+    createFilter: function(nameSelector, kernelTableSelector, dividerSelector) {
       function getDivider(dividerSelector) {
         var val = parseFloat($(dividerSelector).val());
         if (val == 0)

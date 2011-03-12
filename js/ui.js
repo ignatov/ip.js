@@ -26,7 +26,7 @@ $('#filters a').click(function(e) {
       case 'add_5x5_filter_dialog':
         return;
       case 'clear_all':
-        ip.deleteCustomFilters();
+        ip.deleteAllFilters();
         return;
     }
     var endTime = new Date();
@@ -48,7 +48,7 @@ jQuery('#history a').live('click', function(e) {
   canvas.height = currentImageData.height;
   context.putImageData(currentImageData, 0, 0);
 
-  ip.sliceHistory(rel);
+  ip.updateHistory(rel);
 });
 
 $("#convert_to_png").click(function(e) {
