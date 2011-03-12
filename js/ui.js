@@ -41,6 +41,16 @@ $('#filters a').click(function(e) {
       case 'dust_options_link':
         $("#dust_options").toggle();
         return;
+      case 'grid':
+        canvas.pixastic("grid", {
+          color: document.getElementById('grid_color').color,
+          step_x: parseInt($("#grid_step_x").val()),
+          step_y: parseInt($("#grid_step_y").val())
+        });
+        break;
+      case 'grid_options_link':
+        $("#grid_options").toggle();
+        return;
       case 'add_3x3_filter_dialog':
         return;
       case 'add_5x5_filter_dialog':
