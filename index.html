@@ -46,6 +46,17 @@
                         <label>Mono: <input type="checkbox" id="white_noise_mono" checked="true"></label>
                     </div>
                 </li>
+                <li>
+                    <a href="#" id="dust">Dust</a> (<a href="#" id="dust_options_link">options</a>)
+                    <div id="dust_options" class="hidden">
+                        <label>Probability: <input type="text" value="0.7" size="1" id="dust_probability">
+                            (0 &mdash; 1)</label><br>
+                        <label>Min:
+                            <input type="text" value="100" size="2" id="dust_min">
+                            (0 &mdash; 255)</label><br>
+                        <label>Mono: <input type="checkbox" id="dust_mono" checked="true"></label>
+                    </div>
+                </li>
             </ul>
         </div>
 
@@ -128,6 +139,7 @@
 <script type="text/javascript" src="js/erosion.js"></script>
 <script type="text/javascript" src="js/linear-filter.js"></script>
 <script type="text/javascript" src="js/white-noise.js"></script>
+<script type="text/javascript" src="js/dust.js"></script>
 <script type="text/javascript" src="js/filter.js"></script>
 <script type="text/javascript" src="js/ip.js"></script>
 <script type="text/javascript" src="js/ui.js"></script>
