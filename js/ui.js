@@ -12,16 +12,16 @@ $('#filters a').click(function(e) {
   setTimeout(function() {
     var startTime = new Date();
     switch (action) {
-      case 'inversion' :
+      case 'inversion':
         canvas.pixastic("invert");
         break;
-      case 'dilation' :
+      case 'dilation':
         canvas.pixastic("dilation");
         break;
-      case 'erosion' :
+      case 'erosion':
         canvas.pixastic("erosion");
         break;
-      case 'white_noise' :
+      case 'white_noise':
         canvas.pixastic("whiteNoise", {
           probability: parseFloat($("#white_noise_probability").val()),
           amount: parseInt($("#white_noise_amount").val()),
@@ -31,7 +31,7 @@ $('#filters a').click(function(e) {
       case 'white_noise_options_link':
         $("#white_noise_options").toggle();
         return;
-      case 'dust' :
+      case 'dust':
         canvas.pixastic("dust", {
           probability: parseFloat($("#dust_probability").val()),
           min: parseInt($("#dust_min").val()),
