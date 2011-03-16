@@ -51,6 +51,12 @@ $('#filters a').click(function(e) {
       case 'grid_options_link':
         $("#grid_options").toggle();
         return;
+      case 'median_filter':
+        canvas.pixastic("medianFilter", {offset: parseInt($("#median_filter_size").val())});
+        break;
+      case 'median_filter_options_link':
+        $("#median_filter_options").toggle();
+        return;
       case 'add_3x3_filter_dialog':
         return;
       case 'add_5x5_filter_dialog':
