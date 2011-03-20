@@ -93,7 +93,8 @@ section#right {
 
 article {
     float: left;
-    width: 770px;
+    width: 800px;
+    overflow: auto;
     text-align: left;
 }
 
