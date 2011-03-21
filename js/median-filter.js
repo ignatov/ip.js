@@ -16,8 +16,8 @@ Pixastic.Actions.medianFilter = {
       else
         offset = 1;
 
-      for (var u = offset; u < rectangle.height - offset; u++) {
-        for (var v = offset; v < rectangle.width - offset; v++) {
+      for (var u = 0; u < rectangle.height; u++) {
+        for (var v = 0; v < rectangle.width; v++) {
           var sumR = 0;
           var sumG = 0;
           var sumB = 0;
@@ -27,10 +27,12 @@ Pixastic.Actions.medianFilter = {
 
           for (var i = -offset; i <= offset; i++) {
             for (var j = -offset; j <= offset; j++) {
-              r[counter] = dataCopy[((u + i) * rectangle.width + (v + j)) * 4];
-              g[counter] = dataCopy[((u + i) * rectangle.width + (v + j)) * 4 + 1];
-              b[counter] = dataCopy[((u + i) * rectangle.width + (v + j)) * 4 + 2];
-              counter++;
+              if (0 <= u + i && u + i < rectangle.height && 0 <= v + j && v + j < rectangle.width) {
+                r[counter] = dataCopy[((u + i) * rectangle.width + (v + j)) * 4];
+                g[counter] = dataCopy[((u + i) * rectangle.width + (v + j)) * 4 + 1];
+                b[counter] = dataCopy[((u + i) * rectangle.width + (v + j)) * 4 + 2];
+                counter++;
+              }
             }
           }
 
