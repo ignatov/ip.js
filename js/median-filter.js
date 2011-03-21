@@ -18,13 +18,9 @@ Pixastic.Actions.medianFilter = {
 
       var height = rectangle.height;
       var width = rectangle.width;
-      
+
       for (var u = 0; u < height; u++) {
         for (var v = 0; v < width; v++) {
-          var sumR = 0;
-          var sumG = 0;
-          var sumB = 0;
-
           var r = [], g = [], b = [];
           var counter = 0;
 
