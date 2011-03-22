@@ -96,8 +96,8 @@ var ip = function() {
     jQuery('#history ul').empty();
     for (var i = history.length - 1; i >= 0; i--) {
       jQuery('#history ul').append(
-              '<li><a href="#" class="history" class="active" rel="' + i + '">' + history[i].label + '</a></li>'
-              );
+        '<li><a href="#" class="history" class="active" rel="' + i + '">' + history[i].label + ' (' + history[i].duration + ' ms)</a></li>'
+        );
     }
   }
 
