@@ -13,8 +13,8 @@ String.prototype.replaceAll = function(searchValue, replaceValue) {
   return temp;
 };
 
-Array.prototype.median = function () {
-  var ary = this.slice();
+function median(a) {
+  var ary = a.slice();
   var length = ary.length;
   switch (length) {
     case 0:

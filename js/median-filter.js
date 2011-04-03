@@ -35,9 +35,9 @@ Pixastic.Actions.medianFilter = {
             }
           }
 
-          data[(u * width + v) * 4] = Math.floor(r.median());
-          data[(u * width + v) * 4 + 1] = Math.floor(g.median());
-          data[(u * width + v) * 4 + 2] = Math.floor(b.median());
+          data[(u * width + v) * 4] = Math.floor(median(r));
+          data[(u * width + v) * 4 + 1] = Math.floor(median(g));
+          data[(u * width + v) * 4 + 2] = Math.floor(median(b));
         }
       }
     }
